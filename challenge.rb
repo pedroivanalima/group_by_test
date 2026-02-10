@@ -1,5 +1,25 @@
 # ----------------- Implementation (TODO) -----------------
 # TODO: Implement the method below.
+
+# those raises could be a controller validation (before_action)
+# or validated on the model (validates)
+# same for the elements inside the loop, but ignoring them seems fine as well
+def group_by_prefix(words, n)
+  raise ArgumentError if n <= 0
+  raise ArgumentError unless words.instance_of? Array
+
+  groups = {}
+  words.each do |word|
+    next unless word.instance_of? String
+    next if word.length < n
+    group = word[0...n].downcase
+    # initializes on the first time of each group, do nothing on the others
+    groups[group] ||= []
+    groups[group] += [word]
+  end
+  groups.values
+end
+
 # ----------------- Color helpers -----------------
 def green(t)  = "\e[32m#{t}\e[0m"
 def red(t)    = "\e[31m#{t}\e[0m"
